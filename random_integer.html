@@ -47,15 +47,18 @@
     if (secret === null || attemptsLeft === 0) {
       res.innerText = "Гра не активна. Запустіть гру.";
       res1.innerText = "Гра не активна. Запустіть гру.";
+      return;
     }
 
     if (guess_str === "") {
       res.innerText = "Введення скасовано.";
+      return;
     }
 
     const guess = Number(guess_str);
     if (isNaN(guess)) {
       res.innerText = "Це не число!";
+      return;
     }
 
     attemptsLeft--;
@@ -63,6 +66,7 @@
       res.innerText = `Вітаю! Ви вгадали число ${secret}.`;
       secret = null;
       attemptsLeft = 0;
+      return;
     }
     if (guess < secret) {
       res.innerText = `Загадане число більше. Залишилось спроб: ${attemptsLeft}`;
@@ -74,6 +78,7 @@
       secret = null;
     }
   }
+
 
   function cancel() {
     secret = null;
