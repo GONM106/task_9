@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Гончаров М.О. Задача 2</title>
+    <style>
+        body {
+            background-color: #4e4e4e;
+            color: #cccccc;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+<a class="button-link" href="index.html">Повернутися до початку</a>
+<script>
+    function add_numbers() {
+        const res = document.getElementById("res");
+        const aStr = document.task2.a.value.trim();
+        const bStr = document.task2.b.value.trim();
+
+        if (aStr === "" || bStr === "") {
+            return res.innerText = "Скасовано або неповне введення.";
+        }
+
+        const a = parseFloat(aStr);
+        const b = parseFloat(bStr);
+
+        if (isNaN(a) || isNaN(b) || a < 0 || a > 1 || b < 0 || b > 1) {
+            return res.innerText = "Помилка! Введіть числа від 0 до 1.";
+        }
+
+        const sum = a + b;
+        res.className = "result";
+        res.innerText = "Сума: " + sum.toFixed(2);
+    }
+    function cancel() {
+        res.innerText = "Введення скасовано.";
+    }
+</script>
+<p>Задача 2</p>
+<form name="task2" onsubmit="add_numbers(); return false;" onreset="cancel()">
+    <label>Перше число (0–1):</label>
+    <label>
+        <input type="number" name="a" size="4">
+    </label>
+    <label>Друге число (0–1):</label>
+    <label>
+        <input type="number" name="b" size="4">
+    </label>
+    <input class="btn" type="submit" value="Додати">
+    <input class="btn" type="reset" value="Скасувати">
+    <span id="res" class="result note">Введіть значення.</span>
+</form>
+</body>
+</html>

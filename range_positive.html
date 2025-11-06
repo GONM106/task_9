@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Гончаров М.О. Задача 1</title>
+  <style>
+    body {
+      background-color: #4e4e4e;
+      color: #cccccc;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<a class="button-link" href="index.html">Повернутися до початку</a>
+<script>
+  function get_random_two_digit() {
+    return Math.floor(Math.random() * 90) + 10; // 10..99
+  }
+  function get_random_inside(min, max) {
+    if (max - min <= 1) return null;
+    return Math.floor(Math.random() * (max - min - 1)) + (min + 1);
+  }
+  function generate_numbers() {
+    const res = document.getElementById("res");
+    const a = get_random_two_digit();
+    const b = get_random_two_digit();
+    const min = Math.min(a, b);
+    const max = Math.max(a, b);
+
+    const nums = [];
+    for (let i = 0; i < 3; i++) {
+      const x = get_random_inside(min, max);
+      if (x === null) {
+        res.innerText = "Занадто вузький інтервал для внутрішніх чисел.";
+        return;
+      }
+      nums.push(x);
+    }
+    res.innerHTML = `Два числа: ${a}, ${b}<br>Три числа всередині інтервалу: ${nums.join(", ")}`;
+  }
+  function cancel() {
+    res.innerText = "Cкасовано.";
+  }
+</script>
+<p>Задача 4</p>
+<form name="task4" onsubmit="generate_numbers(); return false;" onreset="cancel()">
+  <input class="btn" type="submit" value="Згенерувати числа">
+  <input class="btn" type="reset" value="Скасувати">
+  <br>
+  <span id="res" class="result note">Очікується генерація.</span>
+</form>
+</body>
+</html>

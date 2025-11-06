@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Гончаров М.О. Задача 1</title>
+  <style>
+    body {
+      background-color: #4e4e4e;
+      color: #cccccc;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<a class="button-link" href="index.html">Повернутися до початку</a>
+<script>
+  function check_number() {
+    const res = document.getElementById("res");
+    let val = document.task1.num.value.trim();
+    console.log(val)
+    if (val === "") {
+      res.innerText = "Введення скасовано.";
+    } else if (isNaN(val)) {
+      res.innerText = "Що це таке???";
+    } else {
+      res.innerText = "Ви ввели число: " + val;
+    }
+  }
+  function cancel() {
+    res.innerText = "Введення скасовано.";
+  }
+</script>
+<p>Задача 1</p>
+<form name="task1" onsubmit="check_number(); return false;" onreset="cancel()">
+  <label>Введіть число:</label>
+  <label>
+    <input type="text" name="num">
+  </label>
+  <input class="btn" type="submit" value="Перевірити">
+  <input class="btn" type="reset" value="Скинути">
+  <span id="res" class="result">Введіть значення.</span>
+</form>
+</body>
+</html>

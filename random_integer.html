@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Гончаров М.О. Задача 3</title>
+  <style>
+    body {
+      background-color: #4e4e4e;
+      color: #cccccc;
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<a class="button-link" href="index.html">Повернутися до початку</a>
+<script>
+  let secret = null;
+  let attemptsLeft = 0;
+
+  function random_integer() {
+    const minStr = document.task3.min.value.trim();
+    const maxStr = document.task3.max.value.trim();
+    const res = document.getElementById("res");
+    const res1 = document.getElementById("res1");
+    const min = Number(minStr);
+    const max = Number(maxStr);
+
+    if (minStr === "" || maxStr === "") {
+      return res.innerText = "Скасовано або неповне введення.";
+    }
+
+
+    if (isNaN(min) || isNaN(max) || min > max) {
+      return res.innerText = "Помилка! Перевірте межі діапазону.";
+    }
+
+    secret = Math.floor(Math.random() * (max - min + 1)) + min;
+    attemptsLeft = 10;
+    res.innerText = `Я загадав число від ${min} до ${max}. У вас ${attemptsLeft} спроб!`;
+    res1.innerText = `Введіть значення.`;
+  }
+  function make_integer() {
+    const res = document.getElementById("res");
+    const res1 = document.getElementById("res1");
+    const guess_str = document.task3_1.guess.value.trim();
+
+    if (secret === null || attemptsLeft === 0) {
+      res.innerText = "Гра не активна. Запустіть гру.";
+      res1.innerText = "Гра не активна. Запустіть гру.";
+    }
+
+    if (guess_str === "") {
+      res.innerText = "Введення скасовано.";
+    }
+
+    const guess = Number(guess_str);
+    if (isNaN(guess)) {
+      res.innerText = "Це не число!";
+    }
+
+    attemptsLeft--;
+    if (guess === secret) {
+      res.innerText = `Вітаю! Ви вгадали число ${secret}.`;
+      secret = null;
+      attemptsLeft = 0;
+    }
+    if (guess < secret) {
+      res.innerText = `Загадане число більше. Залишилось спроб: ${attemptsLeft}`;
+    } else {
+      res.innerText = `Загадане число менше. Залишилось спроб: ${attemptsLeft}`;
+    }
+    if (attemptsLeft === 0 && secret !== null) {
+      res.innerText = `Спроби закінчились! Загадане число було ${secret}.`;
+      secret = null;
+    }
+  }
+
+  function cancel() {
+    secret = null;
+    attemptsLeft = 0;
+    res.innerText = "Очікується запуск гри.";
+    res1.innerText = "Очікується запуск гри.";
+  }
+
+</script>
+<p>Задача 3</p>
+<form name="task3" onsubmit="random_integer(); return false;" onreset="cancel()">
+  <label>Мінімум:</label>
+  <label>
+    <input type="number" name="min">
+  </label>
+  <label>Максимум:</label>
+  <label>
+    <input type="number" name="max">
+  </label>
+  <input class="btn" type="submit" value="Почати гру">
+  <input class="btn" type="reset" value="Скасувати гру">
+  <br><br>
+  <span id="res">Очікується запуск гри.</span>
+</form>
+<form name="task3_1" onsubmit="make_integer(); return false;" onreset="cancel()">
+  <label>Вгадайте:</label>
+  <label>
+    <input type="number" name="guess">
+  </label>
+  <input class="btn" type="submit" value="Перевірити">
+  <br><br>
+  <span id="res1">Очікується запуск гри.</span>
+</form>
+</body>
+</html>
